@@ -1,24 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400"],
-  preload: false,
-  adjustFontFallback: true,
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["500"],
-  preload: true,
-  adjustFontFallback: true,
-});
 
 const siteUrl = "https://galaxy-ring-demo.vercel.app";
 
@@ -76,7 +57,6 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
-/* Runs before paint to avoid theme flash */
 const themeInit = `
 (function() {
   try {
@@ -96,11 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="vi"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="vi" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>

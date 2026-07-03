@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Pin the workspace root to this folder so Next doesn't infer a parent
-  // directory when stray lockfiles exist higher up the tree.
   turbopack: {
     root: __dirname,
+    resolveAlias: {
+      "../build/polyfills/polyfill-module": "./lib/empty.js",
+      "next/dist/build/polyfills/polyfill-module": "./lib/empty.js",
+    },
   },
   images: {
     formats: ["image/avif", "image/webp"],
@@ -14,6 +16,15 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["motion/react"],
+    optimizeCss: true,
+  },
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "../build/polyfills/polyfill-module": false,
+      "next/dist/build/polyfills/polyfill-module": false,
+    };
+    return config;
   },
 };
 

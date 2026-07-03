@@ -1,11 +1,10 @@
 import dynamic from "next/dynamic";
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import CustomCursorLoader from "@/components/CustomCursorLoader";
-
-const Navbar = dynamic(() => import("@/components/Navbar"));
 
 const Features = dynamic(() => import("@/components/Features"));
 

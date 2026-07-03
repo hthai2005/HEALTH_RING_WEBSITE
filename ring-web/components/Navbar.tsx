@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
@@ -14,7 +13,6 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  // Lock body scroll while the mobile menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -22,10 +20,6 @@ export default function Navbar() {
     };
   }, [open]);
 
-  // Close the mobile menu, then smooth-scroll to the target. The scroll is
-  // deferred until after the menu's close animation, otherwise the exit
-  // transition cancels the programmatic smooth scroll. `scroll-padding-top`
-  // (in globals.css) keeps the target clear of the fixed header.
   function handleNav(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
     e.preventDefault();
     const el = document.querySelector(href) as HTMLElement | null;
@@ -34,7 +28,7 @@ export default function Navbar() {
     if (!el) return;
     window.setTimeout(() => {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 340);
+    }, 300);
   }
 
   return (
@@ -69,63 +63,46 @@ export default function Navbar() {
           </a>
           <ThemeToggle />
 
-          {/* Mobile menu toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Đóng menu" : "Mở menu"}
             aria-expanded={open}
-            className="grid h-9 w-9 place-items-center rounded-full border border-border text-fg transition-colors hover:bg-surface md:hidden"
+            className={`menu-btn grid h-9 w-9 place-items-center rounded-full border border-border text-fg transition-colors hover:bg-surface md:hidden ${open ? "menu-btn--open" : ""}`}
           >
             <span className="relative block h-4 w-5">
-              <motion.span
-                className="absolute left-0 block h-[1.5px] w-5 bg-current"
-                animate={open ? { top: 7, rotate: 45 } : { top: 3, rotate: 0 }}
-                transition={{ duration: 0.25 }}
-              />
-              <motion.span
-                className="absolute left-0 block h-[1.5px] w-5 bg-current"
-                animate={open ? { top: 7, rotate: -45 } : { top: 11, rotate: 0 }}
-                transition={{ duration: 0.25 }}
-              />
+              <span className="menu-line menu-line--top" />
+              <span className="menu-line menu-line--bottom" />
             </span>
           </button>
         </div>
       </nav>
 
-      {/* Mobile dropdown menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-border md:hidden"
+      <div
+        className={`mobile-menu overflow-hidden border-t border-border md:hidden ${open ? "mobile-menu--open" : ""}`}
+        aria-hidden={!open}
+      >
+        <div className="mobile-menu-inner flex flex-col px-5 pb-5 pt-1">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={(e) => handleNav(e, l.href)}
+              className="flex items-center gap-3 border-b border-border py-4 text-lg text-fg transition-opacity active:opacity-60"
+            >
+              <span className="eyebrow text-[0.65rem] text-muted">{l.n}</span>
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#signup"
+            onClick={(e) => handleNav(e, "#signup")}
+            className="mt-5 rounded-full bg-contrast px-4 py-3.5 text-center text-sm font-medium text-contrast-fg transition-opacity hover:opacity-80 active:opacity-70"
           >
-            <div className="flex flex-col px-5 pb-5 pt-1">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={(e) => handleNav(e, l.href)}
-                  className="flex items-center gap-3 border-b border-border py-4 text-lg text-fg transition-opacity active:opacity-60"
-                >
-                  <span className="eyebrow text-[0.65rem] text-muted">{l.n}</span>
-                  {l.label}
-                </a>
-              ))}
-              <a
-                href="#signup"
-                onClick={(e) => handleNav(e, "#signup")}
-                className="mt-5 rounded-full bg-contrast px-4 py-3.5 text-center text-sm font-medium text-contrast-fg transition-opacity hover:opacity-80 active:opacity-70"
-              >
-                Đăng ký nhận tin
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Đăng ký nhận tin
+          </a>
+        </div>
+      </div>
     </header>
   );
 }
