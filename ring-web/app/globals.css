@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode (toggle via .dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens (monochrome, iyO-inspired) ---------- */
+:root {
+  --bg: #eceae4;
+  --bg-2: #f6f5f1;
+  --surface: rgba(10, 10, 10, 0.04);
+  --surface-strong: rgba(10, 10, 10, 0.08);
+  --border: rgba(10, 10, 10, 0.14);
+  --fg: #0b0b0b;
+  --muted: #6a6a64;
+  --contrast: #0b0b0b;
+  --contrast-fg: #f6f5f1;
+}
+
+.dark {
+  --bg: #0a0a0a;
+  --bg-2: #121212;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.14);
+  --fg: #f2f1ec;
+  --muted: #8a8a83;
+  --contrast: #f2f1ec;
+  --contrast-fg: #0a0a0a;
+}
+
+/* ---------- Tailwind theme mapping ---------- */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-contrast: var(--contrast);
+  --color-contrast-fg: var(--contrast-fg);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ---------- Base ---------- */
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* Hide native cursor on fine pointers (custom cursor takes over) */
+@media (pointer: fine) {
+  .cursor-none-desktop,
+  .cursor-none-desktop * {
+    cursor: none;
+  }
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-strong);
+    border-radius: 999px;
+  }
+}
+
+/* ---------- Typography helpers ---------- */
+.display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  font-family: var(--font-geist-mono), var(--font-sans), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.text-gradient {
+  background: linear-gradient(180deg, var(--fg), color-mix(in srgb, var(--fg) 55%, var(--bg)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Surfaces ---------- */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+}
+
+.light-stage {
+  background: linear-gradient(180deg, #ffffff, #ededea);
+}
+
+/* ---------- Mask reveal (line slides up from behind a clip) ---------- */
+/* padding + negative margin gives room for Vietnamese diacritics / descenders
+   so overflow:hidden doesn't clip glyph marks during the reveal */
+.mask {
+  overflow: hidden;
+  display: block;
+  padding: 0.16em 0.04em;
+  margin: -0.16em -0.04em;
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee-rev {
+  animation-direction: reverse;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #fff;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot[data-hover="true"] {
+  width: 54px;
+  height: 54px;
+}
+
+/* Thin divider line */
+.rule {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+
+/* ---------- Accessibility: reduce motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
