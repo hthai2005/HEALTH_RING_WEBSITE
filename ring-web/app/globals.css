@@ -42,7 +42,7 @@
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-space);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
 }
 
 /* ---------- Base ---------- */
@@ -96,7 +96,7 @@ body {
 }
 
 .eyebrow {
-  font-family: var(--font-geist-mono), var(--font-sans), monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -130,6 +130,75 @@ body {
   display: block;
   padding: 0.16em 0.04em;
   margin: -0.16em -0.04em;
+}
+
+/* ---------- Hero entrance (CSS-only — no JS needed for first paint) ---------- */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-line-reveal {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-in {
+  animation: hero-fade-in 0.8s ease both;
+}
+
+.hero-enter {
+  animation: hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.hero-enter-delay-5 {
+  animation-delay: 0.5s;
+}
+
+.hero-image-enter {
+  animation: hero-scale-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.hero-line > span {
+  animation: hero-line-reveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-line-delay > span {
+  animation-delay: 0.1s;
 }
 
 /* ---------- Marquee ---------- */
@@ -185,6 +254,14 @@ body {
   }
   .marquee {
     animation: none;
+  }
+  .hero-fade-in,
+  .hero-enter,
+  .hero-image-enter,
+  .hero-line > span {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   *,
   *::before,

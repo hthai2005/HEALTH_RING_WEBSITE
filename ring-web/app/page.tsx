@@ -1,20 +1,27 @@
-import CustomCursor from "@/components/CustomCursor";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Stats from "@/components/Stats";
-import Features from "@/components/Features";
-import Storytelling from "@/components/Storytelling";
-import Colors from "@/components/Colors";
-import Showcase from "@/components/Showcase";
-import Specs from "@/components/Specs";
-import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
+import CustomCursorLoader from "@/components/CustomCursorLoader";
+
+const Features = dynamic(() => import("@/components/Features"));
+
+const Storytelling = dynamic(() => import("@/components/Storytelling"));
+
+const Colors = dynamic(() => import("@/components/Colors"));
+
+const Showcase = dynamic(() => import("@/components/Showcase"));
+
+const Specs = dynamic(() => import("@/components/Specs"));
+
+const Newsletter = dynamic(() => import("@/components/Newsletter"));
 
 export default function Home() {
   return (
     <>
-      <CustomCursor />
+      <CustomCursorLoader />
       <Navbar />
       <main>
         <Hero />

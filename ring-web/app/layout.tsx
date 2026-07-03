@@ -1,23 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500"],
+  preload: true,
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
   subsets: ["latin"],
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
+  weight: ["500"],
+  preload: true,
 });
 
 const siteUrl = "https://galaxy-ring-demo.vercel.app";
@@ -98,7 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <head>

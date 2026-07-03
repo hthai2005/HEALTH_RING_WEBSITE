@@ -20,6 +20,7 @@ export default function Specs() {
                 src="/media/ring_fit.jpg"
                 alt="Galaxy Ring siêu nhẹ trên lòng bàn tay"
                 fill
+                loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
               />

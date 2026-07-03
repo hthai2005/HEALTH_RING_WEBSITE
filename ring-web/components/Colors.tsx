@@ -106,6 +106,7 @@ export default function Colors() {
                     src={color.images[photo]}
                     alt={`${color.name} — ảnh ${photo + 1}`}
                     fill
+                    loading={photo === 0 && active === 0 ? undefined : "lazy"}
                     sizes="(max-width: 1024px) 100vw, 55vw"
                     className="object-cover"
                   />

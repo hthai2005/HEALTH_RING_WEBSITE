@@ -63,6 +63,7 @@ function ChapterImage({
           src={src}
           alt={alt}
           fill
+          loading="lazy"
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover"
         />
@@ -120,6 +121,7 @@ export default function Storytelling() {
                   src={c.image}
                   alt={c.alt}
                   fill
+                  loading="lazy"
                   sizes="100vw"
                   className="object-cover"
                 />
