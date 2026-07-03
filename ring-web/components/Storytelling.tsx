@@ -90,8 +90,8 @@ export default function Storytelling() {
       </div>
       <div className="lg:grid lg:grid-cols-2">
         {/* Sticky visual */}
-        <div className="sticky top-0 hidden h-screen overflow-hidden lg:block">
-          <div className="relative h-full w-full">
+        <div className="sticky top-0 hidden h-screen items-center justify-center p-6 sm:p-8 lg:flex">
+          <div className="relative h-[80vh] w-full overflow-hidden rounded-[1.8rem] border border-border">
             {chapters.map((c) => (
               <ChapterImage
                 key={c.image}

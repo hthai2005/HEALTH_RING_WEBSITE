@@ -117,7 +117,7 @@ export default function Colors() {
                 type="button"
                 onClick={() => go(-1)}
                 aria-label="Ảnh trước"
-                className="glass absolute top-1/2 left-4 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-fg transition-transform hover:scale-110 active:scale-95"
+                className="absolute top-1/2 left-4 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-contrast text-contrast-fg shadow-lg transition-transform hover:scale-110 active:scale-95"
               >
                 <IconArrow className="h-4 w-4 rotate-180" />
               </button>
@@ -125,13 +125,13 @@ export default function Colors() {
                 type="button"
                 onClick={() => go(1)}
                 aria-label="Ảnh kế tiếp"
-                className="glass absolute top-1/2 right-4 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-fg transition-transform hover:scale-110 active:scale-95"
+                className="absolute top-1/2 right-4 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-contrast text-contrast-fg shadow-lg transition-transform hover:scale-110 active:scale-95"
               >
                 <IconArrow className="h-4 w-4" />
               </button>
 
               {/* Photo counter */}
-              <span className="glass eyebrow absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-fg">
+              <span className="eyebrow absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-contrast px-3 py-1 text-contrast-fg shadow-lg">
                 {String(photo + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
               </span>
             </div>

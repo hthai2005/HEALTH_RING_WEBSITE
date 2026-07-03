@@ -98,13 +98,13 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} h-full`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body className="min-h-full antialiased cursor-none-desktop">{children}</body>
+      <body className="min-h-screen antialiased cursor-none-desktop">{children}</body>
     </html>
   );
 }
