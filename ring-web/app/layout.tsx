@@ -6,8 +6,9 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500"],
-  preload: true,
+  weight: ["400"],
+  preload: false,
+  adjustFontFallback: true,
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -16,6 +17,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
   weight: ["500"],
   preload: true,
+  adjustFontFallback: true,
 });
 
 const siteUrl = "https://galaxy-ring-demo.vercel.app";

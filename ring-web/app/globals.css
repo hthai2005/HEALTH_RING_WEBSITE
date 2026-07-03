@@ -155,11 +155,9 @@ body {
 
 @keyframes hero-scale-in {
   from {
-    opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.98);
   }
   to {
-    opacity: 1;
     transform: scale(1);
   }
 }
@@ -187,10 +185,6 @@ body {
 
 .hero-enter-delay-5 {
   animation-delay: 0.5s;
-}
-
-.hero-image-enter {
-  animation: hero-scale-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
 .hero-line > span {
@@ -257,7 +251,6 @@ body {
   }
   .hero-fade-in,
   .hero-enter,
-  .hero-image-enter,
   .hero-line > span {
     animation: none;
     opacity: 1;

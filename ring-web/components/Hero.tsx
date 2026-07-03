@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { IconArrow } from "./Icons";
-import HeroScrollFade from "./HeroScrollFade";
 
 export default function Hero() {
   return (
@@ -8,14 +7,12 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pt-28 pb-8 sm:px-8"
     >
-      <HeroScrollFade className="hero-fade-in relative z-20 mx-auto flex w-full max-w-[1500px] items-center justify-between">
-        {/* Top meta row */}
-        <>
-          <span className="eyebrow hidden sm:block">Smart Ring / 2026</span>
-          <span className="eyebrow">Galaxy AI Health</span>
-          <span className="eyebrow hidden sm:block">Titanium · IP68</span>
-        </>
-      </HeroScrollFade>
+      {/* Top meta row */}
+      <div className="hero-fade-in relative z-20 mx-auto flex w-full max-w-[1500px] items-center justify-between">
+        <span className="eyebrow hidden sm:block">Smart Ring / 2026</span>
+        <span className="eyebrow">Galaxy AI Health</span>
+        <span className="eyebrow hidden sm:block">Titanium · IP68</span>
+      </div>
 
       {/* Main: text left, product right */}
       <div className="mx-auto grid w-full max-w-[1500px] flex-1 items-center gap-8 py-8 lg:grid-cols-2 lg:gap-12">
@@ -52,8 +49,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — hero key visual (LCP candidate) */}
-        <div className="hero-image-enter relative order-1 lg:order-2">
+        {/* RIGHT — LCP element: visible immediately, no opacity animation */}
+        <div className="relative order-1 lg:order-2">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,var(--surface-strong),transparent_75%)]" />
           <Image
             src="/media/rings.png"
@@ -62,17 +59,17 @@ export default function Hero() {
             height={1094}
             priority
             fetchPriority="high"
-            quality={80}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 50vw"
+            quality={60}
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 50vw"
             className="relative h-auto w-full rounded-[1.8rem] drop-shadow-2xl"
           />
         </div>
       </div>
 
-      <HeroScrollFade className="relative z-20 mx-auto hidden w-full max-w-[1500px] items-center justify-between sm:flex">
+      <div className="relative z-20 mx-auto hidden w-full max-w-[1500px] items-center justify-between sm:flex">
         <span className="eyebrow">Cuộn để khám phá</span>
         <span className="eyebrow">(01 — 05)</span>
-      </HeroScrollFade>
+      </div>
     </section>
   );
 }

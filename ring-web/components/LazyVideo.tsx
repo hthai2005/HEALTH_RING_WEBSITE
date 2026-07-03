@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type LazyVideoProps = {
@@ -8,44 +9,69 @@ type LazyVideoProps = {
   className?: string;
 };
 
-export default function LazyVideo({ src, poster, className }: LazyVideoProps) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [load, setLoad] = useState(false);
+/**
+ * Poster via next/image (lazy, WebP/AVIF) — avoids eager download of raw JPG
+ * through the video `poster` attribute flagged by PageSpeed.
+ */
+export default function LazyVideo({ src, poster, className = "" }: LazyVideoProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const root = rootRef.current;
+    if (!root) return;
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setLoad(true);
-            el.play().catch(() => {});
+            setShowVideo(true);
           } else {
-            el.pause();
+            videoRef.current?.pause();
           }
         });
       },
-      { threshold: 0.35 }
+      { rootMargin: "120px", threshold: 0 }
     );
 
-    io.observe(el);
+    io.observe(root);
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (showVideo) {
+      videoRef.current?.play().catch(() => {});
+    }
+  }, [showVideo]);
+
   return (
-    <video
-      ref={ref}
-      className={className}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-hidden="true"
-    >
-      {load && <source src={src} type="video/mp4" />}
-    </video>
+    <div ref={rootRef} className={`relative overflow-hidden ${className}`}>
+      {!showVideo ? (
+        <Image
+          src={poster}
+          alt=""
+          fill
+          loading="lazy"
+          quality={60}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover"
+          aria-hidden
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="none"
+          aria-hidden
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      )}
+    </div>
   );
 }
