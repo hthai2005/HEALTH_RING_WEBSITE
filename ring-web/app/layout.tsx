@@ -104,7 +104,12 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body className="min-h-screen antialiased cursor-none-desktop">{children}</body>
+      <body
+        className="min-h-screen antialiased cursor-none-desktop"
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }

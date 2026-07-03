@@ -27,15 +27,11 @@ export default function MaskText({
         <span key={i} className="mask">
           <motion.span
             className="block"
-            initial={reduce ? { opacity: 0 } : { y: "110%" }}
-            animate={
-              reduce
-                ? { opacity: inView ? 1 : 0 }
-                : { y: inView ? "0%" : "110%" }
-            }
+            initial={{ y: "110%" }}
+            animate={{ y: inView ? "0%" : "110%" }}
             transition={{
-              duration: 0.85,
-              delay: delay + i * 0.09,
+              duration: reduce ? 0 : 0.85,
+              delay: reduce ? 0 : delay + i * 0.09,
               ease: [0.22, 1, 0.36, 1],
             }}
           >

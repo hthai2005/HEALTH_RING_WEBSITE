@@ -22,12 +22,12 @@ export default function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y }}
+      initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: 0.7,
-        delay,
+        duration: reduce ? 0 : 0.7,
+        delay: reduce ? 0 : delay,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
